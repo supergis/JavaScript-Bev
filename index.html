@@ -1,0 +1,83 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>supermap</title> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="./js/SuperMap.Include.js"></script>
+	 <script src="./js/jquery-1.8.2.js"></script>
+    <script src="./js/sm_bev_main.js"></script>                    <!--引入bev入口脚本-->
+    <script>
+        var map, layer0,panZoomBar,myWidgetControl,myMenuPanel,myMeasure,myNavigation;
+        function init() {
+            //初始化bev框架，
+            SuperMap.Bev.Main.init(function(){
+                //页面代码需要放入其回调函数中
+
+                //设置主题
+                SuperMap.Bev.Theme.set("dot-luv");
+                initDemo();
+
+                panZoomBar = new SuperMap.Control.PanZoomBar();
+                myNavigation = new SuperMap.Control.Navigation({ dragPanOptions: { enableKinetic: true } });
+                map = new SuperMap.Map('mapContainer',{ controls: [ new SuperMap.Control.ScaleLine(),
+                            panZoomBar,
+                            myNavigation], units: 'm'}
+                );
+                layer0 = new SuperMap.Layer.CloudLayer();
+                map.addLayer(layer0);
+                map.setCenter(new SuperMap.LonLat(0 , 0) , 2);
+            });
+        }
+        function initDemo(){
+            myWidgetControl = new SuperMap.Bev.WidgetControl("#widgetControl");
+
+            myMenuPanel = new SuperMap.Bev.MenuPanel($("#toolbar"),{
+                "tree":[
+                    {
+                        "icon":"measure_icon",
+                        "title":"基本操作",
+                        "menu":new SuperMap.Bev.Menu(null,{
+                            "tree":[
+                                {
+                                    "icon":"measure_16_16",
+                                    "text":"量&nbsp;&nbsp;&nbsp;&nbsp;算",
+                                    "events":{
+                                        "click":function(){
+                                            if(!myMeasure){
+                                                var dialog = new SuperMap.Bev.Dialog(myWidgetControl,null,{
+                                                    "icon":"measure_16_16",
+                                                    "text":"量&nbsp;&nbsp;&nbsp;&nbsp;算"
+                                                });
+
+                                                var contentBody = dialog.getContentBody();
+                                                myMeasure = new SuperMap.Bev.Measure(contentBody,map);
+                                                dialog.on("dialogclose",function(){
+                                                    if(myMeasure){
+                                                        myMeasure.destroy();
+                                                        myMeasure = null;
+                                                    }
+                                                })
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        })
+                    }
+                ]
+            });
+        }
+    </script>
+</head>
+<body onload="init()">
+<!--[if IE 7]><div style="position: absolute;width: 100%;height: 100%;overflow: hidden;"><![endif]-->
+        <div id="mapContainer"></div>
+        <div id="head" class="background_1">
+            <span id="logo" class="head_child"></span>
+            <span id="toolbar" class="head_child"></span>
+        </div>
+        <div id="widgetControl"></div>
+<!--[if IE 7]></div><![endif]-->
+</body>
+</html>

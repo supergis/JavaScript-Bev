@@ -1,0 +1,23 @@
+﻿{
+    "icon":"measure_16_16",
+    "text":"量&nbsp;&nbsp;&nbsp;&nbsp;算",
+    "events":{
+        "click":function () {
+            if (!myMeasure) {//!myMeasure
+                var dialog = new SuperMap.Bev.Dialog(myWidgetControl, null, {
+                    "icon":"measure_16_16",
+                    "text":"量&nbsp;&nbsp;&nbsp;&nbsp;算"
+                });
+
+                var contentBody = dialog.getContentBody();
+                myMeasure = new SuperMap.Bev.Measure(contentBody, map);
+                dialog.on("dialogclose", function () {
+                    if (myMeasure) {
+                        myMeasure.destroy();
+                        myMeasure = null;
+                    }
+                })
+            }
+        }
+    }
+}
