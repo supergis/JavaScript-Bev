@@ -176,6 +176,7 @@
                 } else {
                     this.resultDiv.html("面积：" + measure.toFixed(3) + units);
                 }
+                this.deactivate();
             },
             /**
              * APIMethod: clearFeatures
@@ -206,11 +207,11 @@
              * 注销该控件。
              */
             deactivate:function () {
-                if (this.measureControls["polygon"].active) {
-                    this.measureControls["polygon"].deactivate();
-                }
-                if (this.measureControls["line"].active) {
-                    this.measureControls["line"].deactivate();
+                for(var key in this.measureControls) {
+                    if(this.measureControls[key].activate)
+                    {
+                        this.measureControls[key].deactivate();
+                    }
                 }
             }
         }

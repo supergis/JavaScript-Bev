@@ -49,7 +49,7 @@ $.widget("ui.dialog", {
 		height: "auto",
 		maxHeight: false,
 		maxWidth: false,
-		minHeight: 150,
+		minHeight: 30,
 		minWidth: 150,
 		modal: false,
 		position: {

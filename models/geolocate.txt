@@ -1,0 +1,23 @@
+﻿{
+    "icon":"geolocate_16_16",
+    "text":"定&nbsp;&nbsp;&nbsp;&nbsp;位",
+    "events":{
+        "click":function () {
+            if (!myGeolocate) {
+                var dialog = new SuperMap.Bev.Dialog(myWidgetControl, null, {
+                    "icon":"geolocate_16_16",
+                    "text":"定&nbsp;&nbsp;&nbsp;&nbsp;位"
+                });
+
+                var contentBody = dialog.getContentBody();
+                myGeolocate = new SuperMap.Bev.Geolocate(contentBody, map);
+                dialog.on("dialogclose", function () {
+                    if (myGeolocate) {
+                        myGeolocate.destroy();
+                        myGeolocate = null;
+                    }
+                })
+            }
+        }
+    }
+}

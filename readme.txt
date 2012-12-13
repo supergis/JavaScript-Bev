@@ -1,4 +1,4 @@
-SuperMap iClient JavaScript Bev v0.1.0 自述
+SuperMap iClient JavaScript Bev 0.1.0 自述
 
 版权所有(C) 2000-2012 北京超图软件股份有限公司。保留所有权利。
 

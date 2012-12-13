@@ -411,7 +411,9 @@ LazyLoad = (function (doc) {
             "js/sm_menu.js",
             "js/sm_widgetcontrol.js",
             "js/sm_dialog.js",
-            "js/sm_measure.js"
+            "js/sm_measure.js",
+            "js/sm_geolocate.js",
+            "js/sm_drawFeature.js"
         ]
         this.themePath = jsPath+"sm_theme.js";
         this.loadTimes = 0;

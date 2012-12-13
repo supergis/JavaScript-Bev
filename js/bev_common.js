@@ -171,9 +171,9 @@ function search(value) {
     } else if (value === "量算") {
         toolName = "measure";
     } else if (value === "定位") {
-        toolName = "location";
-    } else if (value === "专题图") {
-        toolName = "themeLabel";
+        toolName = "geolocate";
+    } else if (value === "绘制要素") {
+        toolName = "drawFeature";
     } else if (value === "标注") {
         toolName = "markers";
     }
@@ -254,6 +254,9 @@ function generate_custom() {
     } else if (strservertype == "IIS") {
         strServerXML = "<server_use>IIS</server_use>";
     }
+    else if (strservertype == "php") {
+        strServerXML = "<server_use>php</server_use>";
+    }
 
     var strPageName = document.getElementById("pagename").value;
     var panelManager = "<panelmanager id=\"panelmanager\">"
@@ -283,6 +286,8 @@ function generate_custom() {
 }
 
 function generate_xml(xml) {
+//    console.log(xml);
+//    return;
     var strControls = [];
     var strBaseLayers = [];
     var strPanelsJS = [];
@@ -309,7 +314,7 @@ function generate_xml(xml) {
             strControlsMessage = strControlsMessage + strControls[i] + ",\n";
         }
     }
-    strControlsMessage = strControlsMessage + " ], units: 'm'}\n";
+    strControlsMessage = strControlsMessage + " ], units: 'm',projection: 'EPSG:3857'}\n";
     strMap = "map = new SuperMap.Map('mapContainer'," + strControlsMessage + ");\n";
 
     //读取并添加图层 strBaseLayers
@@ -457,9 +462,9 @@ function generate_xml(xml) {
     }
 
     //添加控件代码字符串
-    var strDemoVar = "var myWidgetControl,myMenuPanel,myMeasure,myNavigation;";
+    var strDemoVar = "var myWidgetControl,myMenuPanel,myMeasure,myNavigation,myGeolocate,myDrawFeature;";
     var strWidgetControl = 'myWidgetControl = new SuperMap.Bev.WidgetControl("#widgetControl");';
-    var strMenuPanel = 'myMenuPanel = new SuperMap.Bev.MenuPanel($("#toolbar"),{\n    "tree":[\n        {\n            "icon":"measure_icon",\n            "title":"基本操作",\n            "menu":new SuperMap.Bev.Menu(null,{\n               "tree":[' + strItem + ']\n})\n}\n]\n});';
+    var strMenuPanel = 'myMenuPanel = new SuperMap.Bev.MenuPanel($("#toolbar"),{\n    "tree":[\n        {\n            "icon":"tool_icon",\n            "title":"基本操作",\n            "menu":new SuperMap.Bev.Menu(null,{\n               "tree":[' + strItem + ']\n})\n}\n]\n});';
     var strInitDemoFun = strDemoVar + "\n function initDemo(){\n" + strWidgetControl + strMenuPanel + "\n}\n";
     //这里是生成新页面的地方
     var strTemplateFile = $(xml).find("template").attr("src");
@@ -484,7 +489,9 @@ function generate_xml(xml) {
         } else if (str_server_use === "Tomcat") {
             str_server = "jsp";
         }
-
+        else if (str_server_use === "php") {
+            str_server = "php";
+        }
         $.post("./index." + str_server,
             { text:unescape(data), page_name:str_page_name + ".html" },
             function (value) {

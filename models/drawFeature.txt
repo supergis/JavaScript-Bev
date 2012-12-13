@@ -1,0 +1,23 @@
+﻿{
+    "icon":"draw_16_16",
+    "text":"绘&nbsp;&nbsp;&nbsp;&nbsp;制",
+    "events":{
+        "click":function () {
+            if (!myDrawFeature) {
+                var dialog = new SuperMap.Bev.Dialog(myWidgetControl, null, {
+                    "icon":"draw_16_16",
+                    "text":"绘&nbsp;&nbsp;&nbsp;&nbsp;制"
+                });
+
+                var contentBody = dialog.getContentBody();
+                myDrawFeature = new SuperMap.Bev.DrawFeature(contentBody, map);
+                dialog.on("dialogclose", function () {
+                    if (myDrawFeature) {
+                        myDrawFeature.destroy();
+                        myDrawFeature = null;
+                    }
+                })
+            }
+        }
+    }
+}

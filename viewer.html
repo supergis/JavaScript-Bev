@@ -34,7 +34,7 @@
                 $("#template").hide();
                 $("#maproperties").fadeIn("fast");
                 $("#maproperties").css("display", "block");
-                geolocation();
+//                geolocation();
             });
 
             $("#step1Pre").click(function () {
@@ -119,8 +119,6 @@
                     return cnt - i;
                 });
             }
-
-            /////
         });
     </script>
 </head>
@@ -338,12 +336,9 @@
             <span class="d1">
                 <ul class="tool_control_ul">
                     <!--<a class="btn btn-success2 express" id="queryId" onclick=selectedTool(id)><span id="queryIdt">查询</span><div id="queryIdr" class="tl_ctr_rt"></div></a>-->
-                    <a class="btn btn-success2 express" id="calculateId" onclick=selectedTool(id)><span
-                            id="calculateIdt">量算</span>
-
-                        <div id="calculateIdr" class="tl_ctr_rt"></div>
-                    </a>
-                    <!--<a class="btn btn-success2 express" id="locationId" onclick=selectedTool(id)><span id="locationIdt">定位</span><div id="locationIdr" class="tl_ctr_rt"></div></a>-->
+                    <a class="btn btn-success2 express" id="calculateId" onclick=selectedTool(id)><span id="calculateIdt">量算</span><div id="calculateIdr" class="tl_ctr_rt"></div></a>
+                    <a class="btn btn-success2 express" id="locationId" onclick=selectedTool(id)><span id="locationIdt">定位</span><div id="locationIdr" class="tl_ctr_rt"></div></a>
+                    <a class="btn btn-success2 express" id="drawFeatureId" onclick=selectedTool(id)><span id="drawFeatureIdt">绘制要素</span><div id="drawFeatureIdr" class="tl_ctr_rt"></div></a>
                     <!--a class="btn btn-success2 express" id="themeId" onclick=selectedTool(id)><span id="themeIdt">专题图</span><div id="themeIdr" class="tl_ctr_rt"></div></a-->
                     <!--<a class="btn btn-success2 express" id="markersId" onclick=selectedTool(id)><span id="markersIdt">标注</span><div id="markersIdr" class="tl_ctr_rt"></div></a>-->
                 </ul>
@@ -361,6 +356,7 @@
         <select name="servertype" id="servertype">
             <option value='Tomcat'>Tomcat Server</option>
             <option value='IIS'>IIS信息发布服务</option>
+            <option value='php'>php+apache</option>
             <!--option value='GAE' >Google APP Engine</option-->
         </select>
         <br/>
